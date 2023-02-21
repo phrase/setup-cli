@@ -1,20 +1,49 @@
 const core = require('@actions/core');
-const wait = require('./wait');
+const tc = require('@actions/tool-cache');
+const os = require('os');
+const cp = require('child_process');
 
+const osMapper = {
+  win32: 'windows',
+  darwin: 'macosx',
+  linux: 'linux',
+}
 
-// most @actions toolkit packages have async methods
+const archMapper = {
+  x32: '386',
+  x64: 'amd64'
+}
+
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    const phrase = 'phrase'
+    const osPlat = os.platform();
+    const osArch = os.arch();
+    const version = core.getInput('version');
+    const cacheToolPath = tc.find(phrase, version)
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    if (cacheToolPath && cacheToolPath !== '') {
+      core.addPath(cacheToolPath);
+      core.setOutput(toolPath);
+      return;
+    }
 
-    core.setOutput('time', new Date().toTimeString());
+    const fileName = osPlat === 'win32'
+      ? `phrase_${osMapper[osPlat]}_${archMapper[osArch]}.exe`
+      : `phrase_${osMapper[osPlat]}_${archMapper[osArch]}`
+
+    const downloadUrl = 'https://github.com/phrase/phrase-cli/releases/download/' + version + '/' + fileName;
+    const downloadPath = await tc.downloadTool(downloadUrl);
+    const toolPath = await tc.cacheFile(downloadPath, phrase, phrase, version, osArch);
+
+    core.addPath(toolPath);
+
+    if (osPlat !== 'win32') {
+      cp.exec(`chmod +x ${toolPath}/${phrase}`)
+    }
+    core.setOutput(toolPath);
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error);
   }
 }
 

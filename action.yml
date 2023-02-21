@@ -1,13 +1,12 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Phrase CLI install'
+description: 'Installs the Phrase Strings CLI tool'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  version:  # id of input
+    description: 'Version of the tool to install'
     required: true
-    default: '1000'
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  path: # output will be available to future steps
+    description: 'Path where the tool has been installed'
 runs:
   using: 'node16'
   main: 'dist/index.js'

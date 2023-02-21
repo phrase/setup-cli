@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "cli-install",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "Installs the Phrase Strings CLI tool",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -11,21 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/phrase/cli-install.git"
   },
   "keywords": [
-    "GitHub",
-    "Actions",
-    "JavaScript"
+    "Phrase",
+    "CLI",
+    "Translations"
   ],
-  "author": "",
+  "author": "team-string-integrations@phrase.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/phrase/cli-install/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/phrase/cli-install",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "@actions/tool-cache": "2.0.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",

@@ -1,5 +1,5 @@
 {
-  "name": "cli-install",
+  "name": "setup-cli",
   "version": "1.0.0",
   "description": "Installs the Phrase Strings CLI tool",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phrase/cli-install.git"
+    "url": "git+https://github.com/phrase/setup-cli.git"
   },
   "keywords": [
     "Phrase",
@@ -21,9 +21,9 @@
   "author": "team-string-integrations@phrase.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/phrase/cli-install/issues"
+    "url": "https://github.com/phrase/setup-cli/issues"
   },
-  "homepage": "https://github.com/phrase/cli-install",
+  "homepage": "https://github.com/phrase/setup-cli",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/tool-cache": "2.0.1"

@@ -2,15 +2,13 @@
 
 This action installs [Phrase](https://phrase.com/) [CLI tool](https://github.com/phrase/phrase-cli) for translation management.
 
-The most of the code has been copied over from https://github.com/winify-ag/setup-phraseapp (see https://github.com/phrase/phrase-cli/issues/119). Big thanks to original authors!
-
 # Usage
 
 See [action.yml](action.yml)
 
 ```yaml
 steps:
-- uses: actions/checkout@v1
+- uses: actions/checkout@v3
 - uses: phrase/setup-cli@v1
   with:
     version: 2.6.6
@@ -22,6 +20,8 @@ steps:
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+Most of the code has been copied over from https://github.com/winify-ag/setup-phraseapp (see https://github.com/phrase/phrase-cli/issues/119). Big thanks to original authors!
 
 # Contributions
 

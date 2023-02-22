@@ -16,6 +16,10 @@ steps:
 - run: phrase push --wait
 ```
 
+Before running the tool, you need to configure it, typically using a configuration file named `.phrase.yml`. More information can be found [here](https://support.phrase.com/hc/en-us/articles/5808300599068-Using-the-CLI-Strings-).
+
+For authentication, you will probably want to use the authentication token passed through an environment variable `PHRASE_ACCESS_TOKEN`. More info at the support link above.
+
 
 # License
 

@@ -1,68 +1,35 @@
-# Create a JavaScript Action
+# setup-cli
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+This action installs [Phrase](https://phrase.com/) [CLI tool](https://github.com/phrase/phrase-cli) for translation management.
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+# Usage
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+See [action.yml](action.yml)
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-Install the dependencies
-
-```bash
-npm install
+```yaml
+steps:
+- uses: actions/checkout@v3
+- uses: phrase/setup-cli@v1
+  with:
+    version: 2.6.6
+- run: phrase pull
+- run: phrase push --wait
 ```
 
-Run the tests :heavy_check_mark:
+Before running the tool, you need to configure it, typically using a configuration file named `.phrase.yml`. More information can be found [here](https://support.phrase.com/hc/en-us/articles/5808300599068-Using-the-CLI-Strings-).
 
-```bash
-$ npm test
+For authentication, you will probably want to use the authentication token passed through an environment variable `PHRASE_ACCESS_TOKEN`. More info at the support link above.
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-...
-```
 
-## Change action.yml
+# License
 
-The action.yml defines the inputs and output for your action.
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
 
-Update the action.yml with your name, description, inputs and outputs for your action.
+Most of the code has been copied over from https://github.com/winify-ag/setup-phraseapp (see https://github.com/phrase/phrase-cli/issues/119). Big thanks to original authors!
 
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
+# Contributions
 
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
+Contributions are welcome!
 
 ## Package for distribution
 
@@ -74,12 +41,6 @@ Run prepare
 
 ```bash
 npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
 ```
 
 ## Create a release branch
@@ -97,20 +58,4 @@ git commit -a -m "v1 release"
 git push origin v1
 ```
 
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket:
-
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:

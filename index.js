@@ -24,7 +24,6 @@ async function run() {
 
     if (cacheToolPath && cacheToolPath !== '') {
       core.addPath(cacheToolPath);
-      core.setOutput(toolPath);
       return;
     }
 

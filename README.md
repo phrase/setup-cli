@@ -8,10 +8,10 @@ See [action.yml](action.yml)
 
 ```yaml
 steps:
-- uses: actions/checkout@v3
+- uses: actions/checkout@v4
 - uses: phrase/setup-cli@v1
   with:
-    version: 2.6.6
+    version: 2.19.0
 - run: phrase pull
 - run: phrase push --wait
 ```

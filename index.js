@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
-const os = require('os');
-const cp = require('child_process');
+const cp = require('node:child_process');
+const os = require('node:os');
 
 const osMapper = {
   win32: 'windows',

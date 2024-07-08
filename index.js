@@ -9,6 +9,10 @@ const osMapper = {
   linux: 'linux',
 }
 
+function isWindows(osPlatform) {
+  return osPlatform === 'win32'
+}
+
 const archMapper = {
   x32: '386',
   x64: 'amd64',
@@ -28,7 +32,7 @@ async function run() {
       return;
     }
 
-    const fileName = osPlat === 'win32'
+    const fileName = isWindows(osPlat)
       ? `phrase_${osMapper[osPlat]}_${archMapper[osArch]}.exe`
       : `phrase_${osMapper[osPlat]}_${archMapper[osArch]}`
 
@@ -38,7 +42,7 @@ async function run() {
 
     core.addPath(toolPath);
 
-    if (osPlat !== 'win32') {
+    if (!isWindows(osPlat)) {
       cp.exec(`chmod +x ${toolPath}/${phrase}`)
     }
     core.setOutput(toolPath);

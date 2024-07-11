@@ -1,7 +1,7 @@
 name: 'Phrase CLI install'
 description: 'Installs the Phrase Strings CLI tool'
 inputs:
-  version:  # id of input
+  version: # id of input
     description: 'Version of the tool to install'
     required: true
 outputs:

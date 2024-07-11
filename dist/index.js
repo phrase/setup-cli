@@ -6650,6 +6650,22 @@ module.exports = require("net");
 
 /***/ }),
 
+/***/ 7718:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:child_process");
+
+/***/ }),
+
+/***/ 612:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:os");
+
+/***/ }),
+
 /***/ 2037:
 /***/ ((module) => {
 
@@ -6748,47 +6764,51 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(2186);
-const tc = __nccwpck_require__(7784);
-const os = __nccwpck_require__(2037);
-const cp = __nccwpck_require__(2081);
+const toolCache = __nccwpck_require__(7784);
+const childProcess = __nccwpck_require__(7718);
+const os = __nccwpck_require__(612);
 
 const osMapper = {
   win32: 'windows',
   darwin: 'macosx',
   linux: 'linux',
+};
+
+function isWindows(osPlatform) {
+  return osPlatform === 'win32';
 }
 
 const archMapper = {
   x32: '386',
   x64: 'amd64',
-  arm64: 'arm64'
-}
+  arm64: 'arm64',
+};
 
 async function run() {
   try {
-    const phrase = 'phrase'
-    const osPlat = os.platform();
+    const phrase = 'phrase';
+    const osPlatform = os.platform();
     const osArch = os.arch();
     const version = core.getInput('version');
-    const cacheToolPath = tc.find(phrase, version)
+    const cacheToolPath = toolCache.find(phrase, version);
 
     if (cacheToolPath && cacheToolPath !== '') {
       core.addPath(cacheToolPath);
       return;
     }
 
-    const fileName = osPlat === 'win32'
-      ? `phrase_${osMapper[osPlat]}_${archMapper[osArch]}.exe`
-      : `phrase_${osMapper[osPlat]}_${archMapper[osArch]}`
+    const fileName = isWindows(osPlatform)
+      ? `phrase_${osMapper[osPlatform]}_${archMapper[osArch]}.exe`
+      : `phrase_${osMapper[osPlatform]}_${archMapper[osArch]}`;
 
-    const downloadUrl = 'https://github.com/phrase/phrase-cli/releases/download/' + version + '/' + fileName;
-    const downloadPath = await tc.downloadTool(downloadUrl);
-    const toolPath = await tc.cacheFile(downloadPath, phrase, phrase, version, osArch);
+    const downloadUrl = `https://github.com/phrase/phrase-cli/releases/download/${version}/${fileName}`;
+    const downloadPath = await toolCache.downloadTool(downloadUrl);
+    const toolPath = await toolCache.cacheFile(downloadPath, phrase, phrase, version, osArch);
 
     core.addPath(toolPath);
 
-    if (osPlat !== 'win32') {
-      cp.exec(`chmod +x ${toolPath}/${phrase}`)
+    if (!isWindows(osPlatform)) {
+      childProcess.exec(`chmod +x ${toolPath}/${phrase}`);
     }
     core.setOutput(toolPath);
   } catch (error) {

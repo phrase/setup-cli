@@ -6,9 +6,10 @@ const path = require('path');
 test('fails when no version supplied', () => {
   const ip = path.join(__dirname, 'index.js');
   try {
-    cp.execSync(`node ${ip}`, {env: process.env}).toString();
-  }
-  catch(err) {
-    expect(err.stdout.toString()).toEqual(expect.stringContaining("versionSpec parameter is required"));
+    cp.execSync(`node ${ip}`, { env: process.env }).toString();
+  } catch (err) {
+    expect(err.stdout.toString()).toEqual(
+      expect.stringContaining('versionSpec parameter is required'),
+    );
   }
 });

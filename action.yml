@@ -8,5 +8,5 @@ outputs:
   path: # output will be available to future steps
     description: 'Path where the tool has been installed'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'

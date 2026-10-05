@@ -26,7 +26,7 @@
   "homepage": "https://github.com/phrase/setup-cli",
   "dependencies": {
     "@actions/core": "^1.10.1",
-    "@actions/tool-cache": "2.0.1"
+    "@actions/tool-cache": "4.0.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.1",
